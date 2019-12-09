@@ -1,0 +1,47 @@
+//Program Documentation
+//Author: Joshua Smith
+//Course: CPT 187
+//Purpose: Supportive Class for MainClass, handles writing to files for orders
+//Create Date: 12/6/2019
+package edu.cpt187.smith.particiapation;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class OrderWriter 
+{
+	//Non-Constant Attributes 
+	private String masterFileName = "";
+	private int recordCount = 0;
+	
+	public OrderWriter(String borrowedFileName)
+	{
+		masterFileName = borrowedFileName;
+	}//End of non-default constructor
+	
+	//SETTERS
+	public void setWriteOrder(int borrowedItemID, String borrowedItemName, double borrowedItemPrice, int borrowedQuantity, double borrowedOrderCost)
+	{
+		try 
+		{
+			PrintWriter filePW = new PrintWriter(new FileWriter(masterFileName, true));
+			filePW.printf("%d\t%s\t%.2f\t%d\t%.2f\r", borrowedItemID, borrowedItemName, borrowedItemPrice, borrowedQuantity, borrowedOrderCost);
+			filePW.close();
+			recordCount++;
+		}//END OF TRY
+		catch(IOException ex) 
+		{
+			System.out.println("Couldn't write to file!");
+		}
+	}//End of set write order
+	
+	//GETTERS
+	public String getFileName()
+	{
+		return masterFileName;
+	}//End of get file name
+	public int getRecordCount()
+	{
+		return recordCount;
+	}//End of get record count
+}//END OF ORDER WRITER CLASS
